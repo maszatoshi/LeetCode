@@ -16,14 +16,26 @@ Console.WriteLine(Fibonacchi.F(19));
 
 #region Sort Algoritms
 
-Console.WriteLine("\nBubble Sort");
+
+
 int[] nums = [64, 34, 25, 12, 22, 11, 90, 5];
+void SetNums()
+{
+    nums = [64, 34, 25, 12, 22, 11, 90, 5];
+}
+
 SortingAlgorithms sortingAlgorithms = new();
-sortingAlgorithms.BubbleSort(ref nums);
+
+Console.WriteLine("\nBubble Sort");
+sortingAlgorithms.BubbleSort(nums);
 
 Console.WriteLine("\nSelection Sort");
-nums = [64, 34, 25, 12, 22, 11, 90, 5];
-sortingAlgorithms.SelectionSort(ref nums);
+SetNums();
+sortingAlgorithms.SelectionSort(nums);
+
+Console.WriteLine("\nInsertion Sort");
+SetNums();
+sortingAlgorithms.InsertionSort(nums);
 #endregion
 
 
