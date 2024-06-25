@@ -36,6 +36,19 @@ sortingAlgorithms.SelectionSort(nums);
 Console.WriteLine("\nInsertion Sort");
 SetNums();
 sortingAlgorithms.InsertionSort(nums);
+
+Console.WriteLine("\nQuick Sort");
+SetNums();
+Console.WriteLine(string.Join(" ", nums));
+sortingAlgorithms.QuickSort(nums);
+
+Console.WriteLine("\nCounting Sort");
+nums = [0, 2, 1, 0, 1, 2, 0, 1, 1, 2];
+sortingAlgorithms.CountingSort(nums);
+
+Console.WriteLine("\nRadix Sort");
+nums = [170, 45, 75, 90, 802, 24, 2, 66];
+sortingAlgorithms.RadixSort(nums);
 #endregion
 
 

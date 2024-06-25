@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,13 +83,132 @@ namespace LeetCode.DSA
             }
         }
 
+        #region QuickSort
         /// <summary>
         /// https://www.w3schools.com/dsa/dsa_algo_quicksort.php
         /// </summary>
         /// <param name="nums"></param>
-        internal void QuickSort(int[] nums)
+        internal void QuickSort(int[] nums, int low = 0, int? high = null)
         {
+            high = high ?? nums.Length - 1;
 
+            if (low < high)
+            {
+                int pivot_index = QuickSort_Partition(nums, low, high.Value);
+                QuickSort(nums, low, pivot_index - 1);
+                QuickSort(nums, pivot_index + 1, high.Value);
+            }
         }
+
+        private int QuickSort_Partition(int[] nums, int low, int high)
+        {
+            int pivot = nums[high];
+            int i = low - 1;
+
+            for (int j = low; j < high; j++)
+            {
+                if (nums[j] <= pivot)
+                {
+                    i++;
+                    (nums[i], nums[j]) = (nums[j], nums[i]);
+                    WriteOut(nums, i, j, high, "\tF");
+                }
+            }
+            (nums[i + 1], nums[high]) = (nums[high], nums[i + 1]);
+            WriteOut(nums, i + 1, high, null, "\tOUT");
+
+
+            return i + 1;
+        }
+
+        private void WriteOut(int[] nums, int index1, int index2, int? pivot = null, string text = "")
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i == index1 || i == index2)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                else if (pivot == i)
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                else Console.ForegroundColor = ConsoleColor.White;
+
+                Console.Write(nums[i] + " ");
+            }
+            Console.WriteLine(text);
+        }
+        #endregion
+
+        /// <summary>
+        /// The counting sort algorithm sorts an array by counting the number of times
+        /// each value occurs.
+        /// https://www.w3schools.com/dsa/dsa_algo_countingsort.php
+        /// https://code-maze.com/counting-sort-in-c/
+        /// </summary>
+        /// <param name="nums"></param>
+        internal void CountingSort(int[] nums)
+        {
+            int max_val = nums.Max();
+            var occurrences = new int[max_val + 1];
+
+            for (int i = 0; i < max_val + 1; i++)
+            {
+                occurrences[i] = 0;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                occurrences[nums[i]]++;
+            }
+
+            for (int i = 0, j = 0; i <= max_val; i++)
+            {
+                while (occurrences[i] > 0)
+                {
+                    nums[j] = i;
+                    j++;
+                    occurrences[i]--;
+                    Console.WriteLine(string.Join(" ", nums));
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Radix Sort algorithm sorts an array by individual digits,
+        /// starting with the least significant digit (the rightmost one).
+        /// https://www.w3schools.com/dsa/dsa_algo_radixsort.php
+        /// https://code-maze.com/csharp-radix-sort/
+        /// </summary>
+        /// <param name="nums"></param>
+        internal void RadixSort(int[] nums)
+        {
+            int maxVal = nums.Max();
+            Console.WriteLine(string.Join(" ", nums));
+
+            for (int exponent = 1; maxVal / exponent > 0; exponent *= 10)
+            {
+                var outputArr = new int[nums.Length];
+                var occurences = new int[10];
+
+                for (int i = 0; i < 10; i++)
+                    occurences[i] = 0;
+
+                for (int i = 0; i < nums.Length; i++)
+                    occurences[(nums[i] / exponent) % 10]++;
+
+                for (int i = 1; i < 10; i++)
+                    occurences[i] += occurences[i - 1];
+
+                for (int i = nums.Length - 1; i >= 0; i--)
+                {
+                    outputArr[occurences[(nums[i] / exponent) % 10] - 1] = nums[i];
+                    occurences[(nums[i] / exponent) % 10]--;
+                }
+                for (int i = 0; i < nums.Length; i++)
+                    nums[i] = outputArr[i];
+                Console.WriteLine(string.Join(" ", nums));
+            }
+        }
+
+        internal void 
     }
 }
