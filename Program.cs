@@ -49,10 +49,28 @@ sortingAlgorithms.CountingSort(nums);
 Console.WriteLine("\nRadix Sort");
 nums = [170, 45, 75, 90, 802, 24, 2, 66];
 sortingAlgorithms.RadixSort(nums);
+
+Console.WriteLine("\nMerge Sort");
+SetNums();
+sortingAlgorithms.MergeSort(nums, 0, nums.Length-1);
+
+Console.WriteLine("\nLinear Search");
+SetNums();
+Console.WriteLine(string.Join(" ", nums));
+Console.WriteLine($"searchedValue: 22");
+int linearIndex = sortingAlgorithms.LinearSearch(nums, 22);
+Console.WriteLine(linearIndex);
+
+Console.WriteLine("\nBinary Search");
+nums = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+Console.WriteLine(string.Join(" ", nums));
+Console.WriteLine($"searchedValue: 13");
+int binaryIndex = sortingAlgorithms.BinarySearch(nums, 13);
+Console.WriteLine(binaryIndex);
 #endregion
 
 
-Console.WriteLine("\n88. MeergeSortedArray");
+Console.WriteLine("\n88. MergeSortedArray");
 MergeSortedArray_88.MergeSortedArray();
 
 

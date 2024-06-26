@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.AccessControl;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LeetCode.DSA
 {
@@ -209,5 +212,114 @@ namespace LeetCode.DSA
             }
         }
 
+        #region Merge Sort
+        /// <summary>
+        /// The Merge Sort algorithm is a devide-and-conquer algirthm that sorts an array by
+        /// first breaking it down into smaller arrays, and then building the array back
+        /// together the correct way so that it is sorted.
+        /// https://www.w3schools.com/dsa/dsa_algo_mergesort.php
+        /// </summary>
+        /// <param name="nums"></param>
+        internal int[] MergeSort(int[] nums, int left, int right)
+        {
+            if (left < right)
+            {
+                int middle = left + (right - left) / 2;
+                MergeSort(nums, left, middle);
+                MergeSort(nums, middle + 1, right);
+
+                Merge(nums, left, middle, right);
+            }
+
+            Console.WriteLine(string.Join(" ", nums));
+            return nums;
+        }
+
+        private void Merge(int[] nums, int left, int middle, int right)
+        {
+            var leftArrayLength = middle - left + 1;
+            var rightArrayLength = right - middle;
+
+            var leftTempArray = new int[leftArrayLength];
+            var rightTempArray = new int[rightArrayLength];
+
+            int i, j;
+
+            for (i = 0; i < leftArrayLength; ++i)
+                leftTempArray[i] = nums[left + i];
+            for (j = 0; j < rightArrayLength; ++j)
+                rightTempArray[j] = nums[middle + 1 + j];
+
+            i = 0;
+            j = 0;
+            int k = left;
+
+            while (i < leftArrayLength && j < rightArrayLength)
+            {
+                if (leftTempArray[i] <= rightTempArray[j])
+                {
+                    nums[k++] = leftTempArray[i++];
+                }
+                else
+                {
+                    nums[k++] = rightTempArray[j++];
+                }
+            }
+
+            while (i < leftArrayLength)
+            {
+                nums[k++] = leftTempArray[i++];
+            }
+
+            while (j < rightArrayLength)
+            {
+                nums[k++] = rightTempArray[j++];
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// The Linear Search algorith searches through an array and returns the index 
+        /// of the value it searches for.
+        /// https://www.w3schools.com/dsa/dsa_algo_linearsearch.php
+        /// </summary>
+        /// <param name="nums"></param>
+        public int LinearSearch(int[] nums, int searchedValue)
+        {
+            int i = -1;
+
+            while (i < nums.Length) 
+            {
+                i++;
+                if (nums[i] == searchedValue)
+                    return i;
+            }
+            return i;
+        }
+
+        /// <summary>
+        /// The Binary Search algorithm searches through an array
+        /// and returns the index of the value it searches for.
+        /// Requies a sorted array to work.
+        /// https://www.w3schools.com/dsa/dsa_algo_binarysearch.php
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="searchedValue"></param>
+        public int BinarySearch(int[] nums, int searchedValue)
+        {
+            int left = 0, right = nums.Length-1;
+
+            while (left <= right) 
+            {
+                int mid = (left+right)/2;
+
+                if (nums[mid] == searchedValue)
+                    return mid;
+                if (nums[mid] < searchedValue)
+                    left = mid + 1;
+                else right = mid - 1;
+            }
+            return -1;
+        }
     }
 }
