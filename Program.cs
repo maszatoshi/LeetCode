@@ -69,6 +69,25 @@ int binaryIndex = sortingAlgorithms.BinarySearch(nums, 13);
 Console.WriteLine(binaryIndex);
 #endregion
 
+#region Linked List
+Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+Console.WriteLine("\nSingly Linked List");
+LinkedLists linkedLists = new ();
+linkedLists.SinglyLinkedList();
+
+Console.WriteLine("\nDoubly Linked List");
+linkedLists.DoublyLinkedList();
+
+Console.WriteLine("\nCircular Singly Linked List");
+linkedLists.CircularSinglyLinkedList();
+
+Console.WriteLine("\nCircular Doubly Linked List");
+linkedLists.CircularDoublyLinkedList();
+
+Console.ForegroundColor = ConsoleColor.White;
+#endregion
+
 
 Console.WriteLine("\n88. MergeSortedArray");
 MergeSortedArray_88.MergeSortedArray();
